@@ -1,0 +1,48 @@
+<!-- src/views/RealidadAumentada.vue -->
+<template>
+  <div class="ar-description">
+    <h2>Realidad Aumentada - Dinosaurios</h2>
+    <p>
+      La Realidad Aumentada (RA) permite superponer elementos digitales sobre el entorno real, creando una experiencia interactiva.
+      En este caso, podrás ver dinosaurios en 3D directamente desde la cámara de tu celular, ¡como si estuvieran en tu propio espacio!
+      Escanea el código QR para descubrir un mundo de dinosaurios interactivos.
+    </p>
+  </div>
+</template>
+
+<script>
+export default {
+  mounted() {
+    // Configuración adicional si es necesario
+  },
+}
+</script>
+
+<style scoped>
+.ar-description {
+  background-color: #2e4d3d; /* Verde oscuro */
+  color: #f0ead2; /* Blanco suave */
+  padding: 20px;
+  border-radius: 10px;
+  font-family: 'Raleway', sans-serif;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+h2 {
+  font-size: 2rem;
+  color: #d4c9a1; /* Color marrón claro */
+  margin-bottom: 15px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+p {
+  font-size: 1.2rem;
+  color: #f0ead2; /* Blanco suave */
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+</style>
