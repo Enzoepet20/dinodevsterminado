@@ -126,6 +126,11 @@ nav a {
   gap: 15px;
   text-decoration: none;
   color: black;
+  cursor: pointer; /* El cursor normal por defecto */
+}
+
+nav a:hover {
+  cursor: url('src/assets/garra2.png'), pointer; /* Ruta relativa */
 }
 
 nav a:first-of-type {

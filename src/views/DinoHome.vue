@@ -7,19 +7,19 @@
       <ul>
         <li>
           <div class="card">
-            <div class="card-header">🦕 <strong>Explora el Mundo Jurásico:</strong></div>
+            <div class="card-header">🦕 <strong>Explora el Mundo Jurásico</strong></div>
             <div class="card-body">Sumergete en un mundo lleno de información emocionante sobre estos majestuosos reptiles prehistóricos.</div>
           </div>
         </li>
         <li>
           <div class="card">
-            <div class="card-header">🦖 <strong>Juegos y Retos:</strong></div>
+            <div class="card-header">🦖 <strong>Juegos y Retos</strong></div>
             <div class="card-body">Pon a prueba tu conocimiento en divertidos juegos y gana puntos.</div>
           </div>
         </li>
         <li>
           <div class="card">
-            <div class="card-header">🔍 <strong>Realidad Aumentada:</strong></div>
+            <div class="card-header">🔍 <strong>Realidad Aumentada</strong></div>
             <div class="card-body">¡Mira a los dinosaurios en 3D en tu propio espacio, como si estuvieran vivos!</div>
           </div>
         </li>
@@ -145,10 +145,10 @@ ul {
 }
 
 .card {
-  background: #8dbf65; /* Verde dinosaurio */
+  background: #3c665259; /* Verde dinosaurio */
   padding: 1.5rem;
   border-radius: 12px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+  box-shadow: 4px 6px 18px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -178,7 +178,7 @@ ul {
 }
 
 .btn-estilos {
-  background-color: #3e7f3e;
+  background-color:#3c6652;
   color: #fff;
   border: none;
   padding: 12px 30px;
