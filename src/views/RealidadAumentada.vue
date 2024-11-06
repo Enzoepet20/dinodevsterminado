@@ -27,6 +27,10 @@ export default {
   font-family: 'Raleway', sans-serif;
   text-align: center;
   margin-bottom: 30px;
+  width: 100%;
+  max-width: 1200px; /* Ajusta el valor para cambiar el ancho máximo */
+  margin: 0 auto; /* Centrará el contenedor */
+
 }
 
 h2 {

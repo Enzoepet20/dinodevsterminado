@@ -97,6 +97,12 @@ export default {
   justify-content: center; /* Centra el contenido */
   align-items: center; /* Centra el contenido en el eje vertical */
   flex-direction: column;
+
+  width: 100%;
+  max-width: 1200px; /* Ajusta el valor para cambiar el ancho máximo */
+  margin: 0 auto; /* Centrará el contenedor */
+  min-height: 100vh;
+  box-sizing: border-box;
 }
 
 h2 {

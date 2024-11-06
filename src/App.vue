@@ -64,7 +64,7 @@ function changeTheme() {
 <style scoped>
 
 .wrapper {
-  height: 100vh;
+  min-height: 100vh;
   width: 100vw;
   background: #fff;
   transition: background-color 0.3s ease;
@@ -72,7 +72,6 @@ function changeTheme() {
 
 .wrapper.dark {
   background: #434343;
-
 }
 
 .btn-wrapper {

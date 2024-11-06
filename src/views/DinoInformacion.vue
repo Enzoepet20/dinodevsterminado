@@ -33,6 +33,12 @@ export default {
   font-family: 'Raleway', sans-serif;
   text-align: center;
   animation: fadeIn 1s ease-in;
+
+  width: 100%;
+  max-width: 1200px; /* Ajusta el valor para cambiar el ancho máximo */
+  margin: 0 auto; /* Centrará el contenedor */
+  min-height: 100vh;
+  box-sizing: border-box;
 }
 
 h2 {

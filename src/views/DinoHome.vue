@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h1>¡DinosDevs te da la bienvenida!</h1>
+    <h1>¡DINOSDEVS TE DA LA BIENVENIDA!</h1>
 
     <h2>¿Qué encontrarás?</h2>
     <div class="feature-container">
@@ -40,9 +40,6 @@
     <RegisterForm v-if="showRegister" @close="showRegister = false" />
   </div>
 
-  <div class="image-container">
-    <img src="@/assets/RexHome.png" alt="REX home" class="imagen-fondo" />
-  </div>
 </template>
 
 <script>
@@ -91,12 +88,22 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: #2e4d3d;
-  padding: 3rem;
+  background: url('@/assets/fondoinicio.jpg') no-repeat center center;
+  background-size: cover;
+  padding: 40px;
+  border-radius: 12px;
   animation: fadeIn 1s ease-in;
   font-family: 'Raleway', sans-serif;
   text-align: center;
+
+  /* Centrando con márgenes */
+  width: 100%;
+  max-width: 1200px; /* Ajusta el valor para cambiar el ancho máximo */
+  margin: 0 auto; /* Centrará el contenedor */
+  min-height: 100vh;
+  box-sizing: border-box;
 }
+
 
 h1 {
   color: #4c9f70; /* Verde más natural y vibrante */
@@ -104,6 +111,8 @@ h1 {
   font-weight: bold;
   text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);
   margin-bottom: 1.5rem;
+  text-shadow:rgba(0, 0, 0, 0.2) 5px 5px 6px;
+  animation: fadeIn 1s ease-in-out;
 }
 
 h2 {
@@ -113,6 +122,8 @@ h2 {
   margin-top: 2rem;
   text-align: center;
   animation: fadeIn 1.2s ease-in-out;
+  text-shadow:rgba(0, 0, 0, 0.2) 5px 5px 6px;
+  animation: fadeIn 1s ease-in-out;
 }
 
 /* Estilo de las características */

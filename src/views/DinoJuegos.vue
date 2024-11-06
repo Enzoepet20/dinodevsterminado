@@ -58,6 +58,12 @@ export default {
   border-radius: 8px;
   font-family: 'Georgia', serif;
   text-align: center;
+
+  width: 100%;
+  max-width: 1200px; /* Ajusta el valor para cambiar el ancho máximo */
+  margin: 0 auto; /* Centrará el contenedor */
+  min-height: 100vh;
+  box-sizing: border-box;
 }
 
 .botones-superiores {
