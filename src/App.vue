@@ -1,30 +1,27 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
-import { reactive } from 'vue';
+import { RouterLink, RouterView } from 'vue-router';
+import { ref } from 'vue';
 import { useThemeStore } from './stores/ThemeStore';
+import { MoonIcon, SunIcon } from '@heroicons/vue/24/solid';
 
+// Instancia del store
+const themeStore = useThemeStore();
 
-import { MoonIcon, SunIcon } from '@heroicons/vue/24/solid'
-
-
-
-
-// instanciar useThemeStore
-
-const themeStore = useThemeStore()
-
-// crear variable reactiva con objeto useStore
-
-const theme = reactive(themeStore)
+// Estado del menú
+const isMenuOpen = ref(false);
 
 function changeTheme() {
   themeStore.cambioDeTema();
 }
+
+function toggleMenu() {
+  isMenuOpen.value = !isMenuOpen.value;
+}
 </script>
 
+
 <template>
-<!-- para cambiar de modo claro a oscuro -->
-  <div :class="{'dark': themeStore.isDark}" class="wrapper transition-ease-linear">
+  <div :class="{ 'dark': themeStore.isDark }" class="wrapper transition-ease-linear">
     <div class="btn-wrapper">
       <div class="toggle-btn">
         <label for="toggle" class="toggle-label">
@@ -41,19 +38,15 @@ function changeTheme() {
     </div>
 
     <header>
-      <img
-        alt="Dinos Devs Logo"
-        class="logo"
-        src="@/assets/logoDinosDevs.png"
-        width="160"
-        height="160"
-      />
+      <img alt="Dinos Devs Logo" class="logo" src="@/assets/logoDinosDevs.png" width="160" height="160" />
 
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/informacion">Información</RouterLink>
-        <RouterLink to="/juegos">Juegos</RouterLink>
-        <RouterLink to="/realidad-aumentada">Realidad Aumentada</RouterLink>
+      <button class="menu-toggle" @click="toggleMenu">☰</button>
+
+      <nav :class="{ 'open': isMenuOpen }">
+        <RouterLink to="/" @click="toggleMenu">Home</RouterLink>
+        <RouterLink to="/informacion" @click="toggleMenu">Información</RouterLink>
+        <RouterLink to="/juegos" @click="toggleMenu">Juegos</RouterLink>
+        <RouterLink to="/realidad-aumentada" @click="toggleMenu">Realidad Aumentada</RouterLink>
       </nav>
     </header>
 
@@ -63,12 +56,12 @@ function changeTheme() {
 
 <style scoped>
 
-.wrapper {
-  min-height: 100vh;
-  width: 100vw;
-  background: #fff;
+/* .wrapper {
+  height: auto;
+  width: 100%;
+  background: #aa2525;
   transition: background-color 0.3s ease;
-}
+} */
 
 .wrapper.dark {
   background: #434343;
@@ -79,15 +72,14 @@ function changeTheme() {
   right: 1px;
 }
 
-/* color de fondo cuado esta en sol */
-input:checked~.dot {
+input:checked ~ .dot {
   transform: translateX(1.5rem);
   background-color: rgb(77, 148, 255);
 }
 
 .label-text {
   color: black;
-  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 .label-text.dark {
@@ -101,21 +93,30 @@ input:checked~.dot {
   transform: translateX(-50%);
   z-index: 1000;
 }
-
 header {
-  line-height: 1.5;
-  max-height: 100vh;
+  height: 130px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #38532c;
 }
 
 .logo {
   display: block;
-  margin: 0 auto 2rem;
+  /* Elimina margin: 0 auto; para alinear a la izquierda */
+  margin-left: 20px; /* Si quieres un pequeño espacio desde el borde izquierdo */
+}
+
+.menu-toggle {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  display: none;
 }
 
 nav {
-  width: 100%;
   font-size: 25px;
-  text-align: center;
+  text-align: right;
   margin-top: 2rem;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
@@ -123,18 +124,13 @@ nav {
 nav a {
   display: inline-block;
   padding: 0 1rem;
-  gap: 15px;
   text-decoration: none;
-  color: black;
-  cursor: pointer; /* El cursor normal por defecto */
+  color: rgb(5, 4, 4);
 }
 
 nav a:hover {
-  cursor: url('src/assets/garra2.png'), pointer; /* Ruta relativa */
-}
+  cursor: url('src/assets/garra2.png'), default;
 
-nav a:first-of-type {
-  margin-left: 0; /* Quitar margen del primer enlace */
 }
 
 nav a.router-link-exact-active {
@@ -145,27 +141,29 @@ nav a.router-link-exact-active:hover {
   background-color: transparent;
 }
 
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
   }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
   nav {
-    text-align: right;
-    margin-left: -1rem;
-    font-size: 1rem;
-    padding-right: 50px;
-    margin-top: 1rem;
+    color: black;
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 70px;
+    right: 0;
+    width: 50%;
+    background-color: #fcfffaec;
+    text-align: center;
+    padding: 1rem 0;
+    margin-right: 20px;
   }
+  nav.open {
+    display: flex;
+  }
+
 }
 
-/* Estilos específicos para el botón del toggle */
 .toggle-btn {
   display: flex;
   align-items: center;
@@ -179,7 +177,7 @@ nav a.router-link-exact-active:hover {
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
+
 }
 
 .toggle-bg {
@@ -187,19 +185,19 @@ nav a.router-link-exact-active:hover {
   height: 2rem;
   background-color: #2a2b2a;
   border-radius: 9999px;
-  position: relative; /* Necesario para posicionar el 'dot' dentro */
-  transition: background-color 0.3s ease; /* Transición suave para el fondo */
+  position: relative;
+  transition: background-color 0.3s ease;
 }
 
 .dot {
   position: absolute;
-  left: 1.25rem; /* Alineación inicial del 'dot' a la izquierda */
-  top: 1.2rem; /* Alineación vertical */
+  left: 1.25rem;
+  top: 1.2rem;
   width: 1.5rem;
   height: 1.5rem;
   background-color: rgb(0, 0, 0);
-  border-radius: 9999px; /* Hacer el 'dot' redondo */
-  transition: transform 0.3s ease, background-color 0.3s ease; /* Transiciones suaves */
+  border-radius: 9999px;
+  transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
 .moon-icon {
@@ -210,13 +208,13 @@ nav a.router-link-exact-active:hover {
 
 .sun-icon {
   width: 1.5rem;
-  height: 1.4srem;
+  height: 1.4rem;
   color: #fbbf24;
-
 }
 
-.sr-only{
+.sr-only {
   display: none;
 }
+
 
 </style>

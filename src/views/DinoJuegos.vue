@@ -55,13 +55,10 @@ export default {
   background-color: #2e4d3d;
   color: #f0ead2;
   padding: 20px;
-  border-radius: 8px;
   font-family: 'Georgia', serif;
   text-align: center;
-
   width: 100%;
-  max-width: 1200px; /* Ajusta el valor para cambiar el ancho máximo */
-  margin: 0 auto; /* Centrará el contenedor */
+  margin: 0 auto;
   min-height: 100vh;
   box-sizing: border-box;
 }
@@ -96,7 +93,9 @@ button:hover {
   gap: 20px;
   margin-top: 16px;
 }
+
 @import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
+
 .juego-item {
   background: linear-gradient(135deg, #4a7a5b, #5c8a70);
   color: #f0ead2;
@@ -144,5 +143,38 @@ button:hover {
 .juego-item:hover {
   transform: scale(1.05);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+/* MEDIA QUERIES para dispositivos pequeños */
+@media (max-width: 768px) {
+  .juegos-grid {
+    grid-template-columns: repeat(1, 1fr); /* Pone los juegos en una sola columna */
+  }
+
+  /* Puedes ajustar el tamaño del texto para pantallas más pequeñas */
+  .juego-item {
+    font-size: 1rem;
+    padding: 15px;
+  }
+
+  .juego-item i {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Ajusta aún más para pantallas muy pequeñas como los móviles */
+  .juegos-grid {
+    grid-template-columns: repeat(1, 1fr); /* Pone los juegos en una sola columna */
+  }
+
+  .juego-item {
+    font-size: 0.9rem;
+    padding: 12px;
+  }
+
+  .juego-item i {
+    font-size: 1.3rem;
+  }
 }
 </style>

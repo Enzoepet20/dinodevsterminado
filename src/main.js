@@ -1,24 +1,19 @@
-import { createApp } from 'vue'
-import App from './App.vue'
-import router from './router'
+import { createApp } from 'vue';
+import App from './App.vue';
+import router from './router';
+import { createPinia } from 'pinia';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from '../firebaseConfig'; 
+import { useAuthStore } from './stores/auth';
 
-import { createPinia } from 'pinia'
-import { createAuth0 } from '@auth0/auth0-vue'
-import '@fortawesome/fontawesome-free/css/all.css';
+const app = createApp(App);
+const pinia = createPinia();
+app.use(pinia); // 🔥 Se debe usar antes de llamar al store
 
+const authStore = useAuthStore();
+onAuthStateChanged(auth, (user) => {
+  authStore.setAuthState(user);
+});
 
-const app = createApp(App)
-
-app.use(createPinia())
-app.use(router)
-app.use(
-  createAuth0({
-    domain: "dev-p2a38yay4uw13qpa.us.auth0.com",
-    clientId: "om02RN01rMOejXn2D6O2FIklHPW1hwWW",
-    authorizationParams: {
-      redirect_uri: window.location.origin
-    }
-  })
-);
-
-app.mount('#app') // Asegúrate de incluir esta línea
+app.use(router);
+app.mount('#app');

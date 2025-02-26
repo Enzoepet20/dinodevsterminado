@@ -1,21 +1,22 @@
-// creacion del store de cart
-
 import { defineStore } from 'pinia';
-import type { ThemeState } from '../models/ThemeState'
+import { ref, computed, watch } from 'vue';
 
-export const useThemeStore  = defineStore({
-  id: "theme",
-  state: (): ThemeState => ({
+export const useThemeStore = defineStore('theme', () => {
+  // Cargar el estado desde localStorage o usar falso por defecto
+  const isDark = ref(localStorage.getItem('theme') === 'dark');
 
-    isDark: false,
-    mode: "Light Mode"
+  // Computed para el modo
+  const mode = computed(() => (isDark.value ? 'Dark Mode' : 'Light Mode'));
 
-  }),
-  actions: {
-    cambioDeTema() {
-      this.isDark = !this.isDark;
-      this.mode = this.isDark ? 'Dark Mode' : 'Light Mode';
-    },
-  },
+  // Método para cambiar el tema
+  const cambioDeTema = () => {
+    isDark.value = !isDark.value;
+  };
+
+  // Watch para guardar cambios en localStorage
+  watch(isDark, (newValue) => {
+    localStorage.setItem('theme', newValue ? 'dark' : 'light');
+  });
+
+  return { isDark, mode, cambioDeTema };
 });
-

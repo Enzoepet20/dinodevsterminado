@@ -17,13 +17,24 @@ defineProps(['dino'])
 
 <style scoped>
 .dino-card {
-  border: 1px solid #ccc;
+  background-color: rgba(224, 221, 192, 0.973);
+
+  border: 1px solid #220f0f;
   padding: 16px;
   margin: 8px;
   width: 300px;
   text-align: center;
+  border-radius: 40px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 1);
+
+}
+p{
+  color: #142018;
 }
 
+h2{
+  color: #220f0f;
+}
 .dino-card img {
   max-width: 100%;
   height: auto;

@@ -1,81 +1,79 @@
 <template>
   <div class="container">
-    <h1>¡DINOSDEVS TE DA LA BIENVENIDA!</h1>
+    <h1 class="text-3xl font-bold text-center mt-8">¡DINOSDEVS TE DA LA BIENVENIDA!</h1>
+    <h2 class="text-xl text-center mt-4">¿Qué encontrarás?</h2>
 
-    <h2>¿Qué encontrarás?</h2>
-    <div class="feature-container">
-      <ul>
-        <li>
-          <div class="card">
-            <div class="card-header">🦕 <strong>Explora el Mundo Jurásico</strong></div>
-            <div class="card-body">Sumergete en un mundo lleno de información emocionante sobre estos majestuosos reptiles prehistóricos.</div>
-          </div>
-        </li>
-        <li>
-          <div class="card">
-            <div class="card-header">🦖 <strong>Juegos y Retos</strong></div>
-            <div class="card-body">Pon a prueba tu conocimiento en divertidos juegos y gana puntos.</div>
-          </div>
-        </li>
-        <li>
-          <div class="card">
-            <div class="card-header">🔍 <strong>Realidad Aumentada</strong></div>
-            <div class="card-body">¡Mira a los dinosaurios en 3D en tu propio espacio, como si estuvieran vivos!</div>
-          </div>
-        </li>
-      </ul>
+    <!-- Cards -->
+    <div class="feature-container flex flex-wrap justify-center gap-4 mt-4">
+      <div class="card w-full sm:w-[45%] lg:w-[30%] aspect-square bg-green-800 rounded-xl shadow-lg transform transition-transform hover:scale-105">
+        <div class="card-header text-white text-lg font-semibold p-4">🦕 <strong>Explora el Mundo Jurásico</strong></div>
+        <div class="card-body text-gray-200 text-base p-4">
+          Sumérgete en un mundo lleno de información emocionante sobre estos majestuosos reptiles prehistóricos.
+        </div>
+      </div>
+
+      <div class="card w-full sm:w-[45%] lg:w-[30%] aspect-square bg-green-800 rounded-xl shadow-lg transform transition-transform hover:scale-105">
+        <div class="card-header text-white text-lg font-semibold p-4">🦖 <strong>Juegos y Retos</strong></div>
+        <div class="card-body text-gray-200 text-base p-4">
+          Pon a prueba tu conocimiento en divertidos juegos y gana puntos.
+        </div>
+      </div>
+
+      <div class="card w-full sm:w-[45%] lg:w-[30%] aspect-square bg-green-800 rounded-xl shadow-lg transform transition-transform hover:scale-105">
+        <div class="card-header text-white text-lg font-semibold p-4">🔍 <strong>Realidad Aumentada</strong></div>
+        <div class="card-body text-gray-200 text-base p-4">
+          ¡Mira a los dinosaurios en 3D en tu propio espacio, como si estuvieran vivos!
+        </div>
+      </div>
     </div>
 
-    <h2>¿Listo para la aventura?</h2>
+    <!-- Sección adicional -->
+    <h2 class="text-xl font-semibold text-center mt-8">¿Listo para la aventura?</h2>
 
-    <div class="button-container">
-      <!-- Mostrar botones de Login y Logout -->
-      <button v-if="!isAuthenticated" @click="login" class="btn-estilos">Iniciar sesión</button>
-      <button v-if="isAuthenticated" @click="logout" class="btn-estilos">Cerrar sesión</button>
-      <button v-if="!isAuthenticated" @click="register" class="btn-estilos">Registrarse</button>
+    <!-- Botones de autenticación -->
+    <div class="button-container flex justify-center gap-4 mt-4">
+      <button
+        v-if="!isAuthenticated"
+        @click="showLogin = true"
+        class="btn-estilos bg-blue-600 text-white py-2 px-4 rounded-lg shadow-md hover:bg-blue-700"
+      >
+        Iniciar sesión
+      </button>
+      <button
+        v-if="isAuthenticated"
+        @click="logout"
+        class="btn-estilos bg-red-600 text-white py-2 px-4 rounded-lg shadow-md hover:bg-red-700"
+      >
+        Cerrar sesión
+      </button>
     </div>
 
-    <!-- Formularios en la misma página -->
-    <LoginForm v-if="showLogin" @close="showLogin = false" />
-    <RegisterForm v-if="showRegister" @close="showRegister = false" />
+    <!-- Formulario de autenticación -->
+    <AuthForm v-if="showLogin" @close="showLogin = false" class="mt-6" />
   </div>
-
 </template>
 
 <script>
-import { ref } from 'vue'; // Importar ref para reactividad
-import LoginForm from '../components/LoginForm.vue';
-import RegisterForm from '../components/RegisterForm.vue';
-import { useAuth0 } from "@auth0/auth0-vue";
+import { ref, computed } from 'vue';
+import { useAuthStore } from '@/stores/auth'; // Importamos Pinia
+import AuthForm from '../components/AuthForm.vue'; // Un solo formulario para login y registro
 
 export default {
   name: 'DinoHome',
   components: {
-    LoginForm,
-    RegisterForm,
+    AuthForm,
   },
   setup() {
-    const { loginWithRedirect, logout, isAuthenticated } = useAuth0();
-    const showLogin = ref(false); // Usando ref para reactividad
-    const showRegister = ref(false); // Usando ref para reactividad
+    const authStore = useAuthStore();
+    const isAuthenticated = computed(() => authStore.isAuthenticated);
+    const showLogin = ref(false);
 
-    const login = () => {
-      loginWithRedirect(); // Redirigir al usuario a Auth0 para iniciar sesión
-      showLogin.value = false; // Cerrar el formulario de Login si se inicia sesión
-    };
-
-    const register = () => {
-      // Redirigir al usuario a la página de registro de Auth0
-      window.location.href = `https://dev-p2a38yay4uw13qpa.us.auth0.com/signup`;
-    };
+    const logout = () => authStore.logout();
 
     return {
-      showLogin,
-      showRegister,
-      login,
-      logout,
       isAuthenticated,
-      register,
+      showLogin,
+      logout,
     };
   },
 };
@@ -91,85 +89,63 @@ export default {
   background: url('@/assets/fondoinicio.jpg') no-repeat center center;
   background-size: cover;
   padding: 40px;
-  border-radius: 12px;
   animation: fadeIn 1s ease-in;
   font-family: 'Raleway', sans-serif;
   text-align: center;
-
-  /* Centrando con márgenes */
-  width: 100%;
-  max-width: 1200px; /* Ajusta el valor para cambiar el ancho máximo */
-  margin: 0 auto; /* Centrará el contenedor */
-  min-height: 100vh;
-  box-sizing: border-box;
 }
 
-
 h1 {
-  color: #4c9f70; /* Verde más natural y vibrante */
+  color: #f5fffb;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   font-size: 4rem;
   font-weight: bold;
-  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);
   margin-bottom: 1.5rem;
-  text-shadow:rgba(0, 0, 0, 0.2) 5px 5px 6px;
+  text-shadow: rgb(0, 2, 1) 5px 5px 6px;
   animation: fadeIn 1s ease-in-out;
 }
 
 h2 {
-  color: #6b8e23; /* Verde oliva */
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  color: #e1ff74;
   font-size: 2.5rem;
   font-weight: 600;
   margin-top: 2rem;
   text-align: center;
-  animation: fadeIn 1.2s ease-in-out;
-  text-shadow:rgba(0, 0, 0, 0.2) 5px 5px 6px;
+  text-shadow: rgba(0, 0, 0, 1) 5px 5px 6px;
   animation: fadeIn 1s ease-in-out;
 }
 
-/* Estilo de las características */
 .feature-container {
   display: flex;
   justify-content: center;
   gap: 2rem;
   margin-top: 2rem;
   animation: fadeIn 1.5s ease-in-out;
-}
-
-ul {
-  padding: 0;
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  width: 100%;
+  overflow: hidden;
 }
 
 .card {
-  background: #3c665259; /* Verde dinosaurio */
-  padding: 1.5rem;
+  max-width: 90%;
+  background: #fcf7d098;
+  padding: 15px;
   border-radius: 12px;
-  box-shadow: 4px 6px 18px rgba(0, 0, 0, 0.2);
+  box-shadow: 4px 6px 18px rgba(0, 0, 0, 0.836);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
 .card-header {
   font-size: 1.3rem;
-  color: #fff;
+  color: #063b11;
   font-weight: 600;
 }
 
 .card-body {
   font-size: 1.1rem;
-  color: #f1f1f1;
+  color: #000000;
   margin-top: 0.5rem;
 }
 
-/* Estilo para los botones */
+/* Botones */
 .button-container {
   display: flex;
   gap: 2rem;
@@ -178,7 +154,7 @@ ul {
 }
 
 .btn-estilos {
-  background-color:#3c6652;
+  background-color: #155335;
   color: #fff;
   border: none;
   padding: 12px 30px;
@@ -186,44 +162,16 @@ ul {
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.897);
 }
 
 .btn-estilos:hover {
-  background-color: #2c5a2c;
+  background-color: #225c22;
   transform: translateY(-3px);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 
-/* Imagen de fondo del dinosaurio */
-.image-container {
-  margin-top: 3rem;
-  position: relative;
-}
-
-.imagen-fondo {
-  width: 90%;
-  max-width: 700px;
-  height: auto;
-  border-radius: 20px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
-  transition: transform 0.5s ease-in-out;
-}
-
-.imagen-fondo:hover {
-  transform: scale(1.05);
-}
-
-/* Animaciones */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
+/* Responsivo */
 @media (max-width: 768px) {
   h1 {
     font-size: 3rem;
@@ -245,11 +193,6 @@ ul {
 
   .card {
     width: 90%;
-  }
-
-  .imagen-fondo {
-    width: 100%;
-    height: auto;
   }
 }
 </style>

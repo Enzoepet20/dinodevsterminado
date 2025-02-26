@@ -23,12 +23,9 @@ export default {
   background-color: #2e4d3d; /* Verde oscuro */
   color: #f0ead2; /* Blanco suave */
   padding: 20px;
-  border-radius: 10px;
   font-family: 'Raleway', sans-serif;
   text-align: center;
   margin-bottom: 30px;
-  width: 100%;
-  max-width: 1200px; /* Ajusta el valor para cambiar el ancho máximo */
   margin: 0 auto; /* Centrará el contenedor */
 
 }
