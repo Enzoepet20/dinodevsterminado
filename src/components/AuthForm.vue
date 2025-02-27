@@ -53,7 +53,7 @@ export default {
           await authStore.register(email.value, password.value);
         }
 
-        const redirectTo = route.query.redirect || '/menu';
+        const redirectTo = route.query.redirect || '/juegos';
         router.push(redirectTo);
       } catch (err) {
         error.value = getErrorMessage(err.code);
