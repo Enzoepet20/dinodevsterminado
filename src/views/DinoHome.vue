@@ -54,7 +54,8 @@
 </template>
 
 <script>
-import { ref, computed, onMounted } from 'vue';
+import { ref, computed, onMounted} from 'vue';
+import { nextTick } from 'vue';
 import { useAuthStore } from '@/stores/auth';
 import { useRouter } from 'vue-router'; // Importa el enrutador
 import AuthForm from '../components/AuthForm.vue';
@@ -73,11 +74,10 @@ export default {
     const logout = () => authStore.logout();
 
     // Redirige a Juegos cuando el usuario está autenticado
-    onMounted(() => {
-      if (isAuthenticated.value) {
-        router.push('/juegos'); // Redirige al usuario a la página de juegos
-      }
-    });
+
+
+
+
 
     return {
       isAuthenticated,

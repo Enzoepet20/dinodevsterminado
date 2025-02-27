@@ -11,7 +11,11 @@ import SopaDeLetras from '@/components/SopaDeLetras.vue';
 import AuthForm from '@/components/AuthForm.vue';
 
 const routes = [
-  { path: '/', component: DinoHome },
+  {
+    path: '/',
+    name: 'Home',
+    component: DinoHome
+  },
   { path: '/menu', component: DinoMenu },
   { path: '/informacion', component: DinoInformacion },
   { path: '/login', component: AuthForm },
